@@ -6,18 +6,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const productsSlice = createSlice({
   name: "products",
 
-  initialState: [],
+  initialState: {},
 
   reducers: {
 
-    setProducts: (state, action) => {
-      // state.push(action.payload)  
-      state = action.payload
-      console.log('action.payload from product reducer',action.payload)
-      console.log('state from product reducer',state)
-    },
-    clearProducts:(state)=>{
-      state=[]
+    setProductsGlobal: (state, action) => state = action.payload,
+
+    clearProducts: (state) => {
+      state = {}
     },
 
 
@@ -29,7 +25,7 @@ const productsSlice = createSlice({
 
 
 
-export const { setProducts, clearProducts } = productsSlice.actions;
+export const { setProductsGlobal, clearProducts } = productsSlice.actions;
 export default productsSlice.reducer;
 
 

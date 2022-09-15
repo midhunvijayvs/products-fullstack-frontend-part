@@ -1,39 +1,49 @@
-import React, { Component } from 'react';
+
 import './App.css';
 import { Header, Content } from 'antd/lib/layout/layout';
 import { Button, Layout } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
-import { Input, Space, Form } from 'antd';
+import {CloseOutlined } from '@ant-design/icons';
+import {Space, Form } from 'antd';
 import axios from "axios";
-import { connect } from "react-redux";
-import { setProducts } from './redux/productsSlice';
-import { setShowProducts } from './redux/showProductsReducer';
-import { get, post, deleteEntry } from './axiosConfig';
+
+
+import { deleteEntry } from './axiosConfig';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setProductsGlobal, clearProducts } from './redux/productsSlice'
+
+const baseURL = "http://127.0.0.1:8000/api";
 
 
 
-
-const mapStateToProps = (state) => {
-  return {
-    mystates: state,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setTheProducts: (obj) => dispatch(setProducts(obj)),
-
-    setTheshowProducts: (obj) => dispatch(setShowProducts(obj)),
-  
-
-  };
-};
 
 
 function DeleteProduct(props) {
 
-  const [products, setProducts] = React.useState(null);
+
+  const productsGlobal = useSelector((state) => state)
+  const dispatch = useDispatch()
+
+
+
   const { showDeleteProduct } = props
+
+
+const fetchProducts = () => {
+
+    console.log('fetchProducts Called!!')
+
+    axios.get(`${baseURL}/list`).then((response) => {
+      var res = { data: response.data }
+      console.log('res:',res)
+      dispatch(setProductsGlobal(res))
+      console.log('productsGlobal',productsGlobal)
+
+      // props.setTheProducts({ products })
+      // console.log('from App', props.mystates.products)
+
+    });
+  }
 
 
 
@@ -45,6 +55,8 @@ function DeleteProduct(props) {
 
 
       .then(function (response) {
+
+        fetchProducts();
 
       })
       .catch(function (error) {
@@ -66,14 +78,14 @@ function DeleteProduct(props) {
       <Layout>
         <Header>
           <h5>Delete Product</h5>
-          <Button onClick={() => showDeleteProduct(false)}>Close</Button>
+          <Button onClick={() => showDeleteProduct(false)} className="close-button"><CloseOutlined /></Button>
         </Header>
         <Content className='delete-wrapper'>
           <Form name='DeleteProductForm' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
             <p>Are you sure to delete this Product?</p>
             <Space>
               <Button type="primary" htmlType="submit">Yes</Button>
-              <Button onClick={() =>
+              <Button className='cancel-button' onClick={() =>
                 showDeleteProduct(false)}>Cancel</Button>
             </Space>
 
@@ -90,4 +102,4 @@ function DeleteProduct(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteProduct);
+export default DeleteProduct;

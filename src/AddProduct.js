@@ -1,34 +1,81 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import './App.css';
 import { Header, Content } from 'antd/lib/layout/layout';
 import { Button, Layout } from 'antd';
 import { Input, Form } from 'antd';
 import axios from "axios";
 import { get, post, put } from './axiosConfig';
-
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setProductsGlobal, clearProducts } from './redux/productsSlice'
+import { useForm } from 'antd/lib/form/Form';
+import { useState } from 'react';
+const baseURL = "http://127.0.0.1:8000/api";
 
 
 
 function AddProduct(props) {
-  
 
-  const [products, setProducts] = React.useState(null);
+
+  const productsGlobal = useSelector((state) => state)
+  const dispatch = useDispatch()
+
+
 
   const { showAddProduct } = props
 
+  const [name, setName] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    
+    console.log("image File", selectedFile);
+    console.log(props.data);
+    
+   
+
+  },[selectedFile]);
+
+
+  const fetchProducts = () => {
+
+    console.log('fetchProducts Called!!')
+
+    axios.get(`${baseURL}/list`).then((response) => {
+      var res = { data: response.data }
+      console.log('res:',res)
+      dispatch(setProductsGlobal(res))
+      console.log('productsGlobal',productsGlobal)
+
+      // props.setTheProducts({ products })
+      // console.log('from App', props.mystates.products)
+
+    });
+  }
+
+ 
 
   const onFinish = (values) => {
     console.log(typeof(values));
-    console.log('Success:', values);
-    console.log('Add Product Props:', props);
+    
+   
+    
+    
+   
+   
     if (props.function == 'add') {
       
-      
+      const form_data1 = new FormData();
+      for ( var key in values ) {
+        form_data1.append(key, values[key]);
+      }
 
-      post('/add', values)
+      form_data1.set("image", selectedFile);
+
+      post('/add', form_data1)
         .then(function (response) {
-          console.log(response);
+          console.log('Success!  :', form_data1);
+          console.log('Response for Add',response);
+          fetchProducts();
         })
         .catch(function (error) {
           console.log(error);
@@ -36,19 +83,25 @@ function AddProduct(props) {
 
       showAddProduct(false)
     }
+
+
+
     else if (props.function == 'edit') {
 
-      var form_data = new FormData();
+      var form_data2 = new FormData();
 
-    for ( var key in values ) {
-        form_data.append(key, values[key]);
-    }
-    form_data.append("_method",'put' )
+      for ( var key in values ) {
+          form_data2.append(key, values[key]);
+      }
 
-    
-      post(`/edit/${props.id}`, form_data)
+      form_data2.append("_method",'put' )
+
+      form_data2.set("image", selectedFile);
+
+      post(`/edit/${props.id}`, form_data2)
         .then(function (response) {
           console.log(response);
+          fetchProducts();
         })
         .catch(function (error) {
           console.log(error);
@@ -71,12 +124,22 @@ function AddProduct(props) {
       <Layout>
         <Header>
           <h5>{props.function} Product</h5>
-          <Button onClick={() => showAddProduct(false)}>Close</Button>
+          <Button onClick={() => showAddProduct(false)} className="close-button">Close</Button>
         </Header>
         <Content>
 
 
-          <Form name='AddProductForm' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
+          <Form name='AddProductForm' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off"
+          initialValues={{
+            ["title"]: props.data.title,
+            ["short_notes"]: props.data.short_notes,
+            ["description"]: props.data.description,
+            ["price"]: props.data.price
+            
+            
+            
+            
+          }}>
 
             <Form.Item
               label="Title"
@@ -88,21 +151,9 @@ function AddProduct(props) {
                 },
               ]}
             >
-              <Input />
+              <Input/>
             </Form.Item>
 
-            <Form.Item
-              label="Description"
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: 'Enter Description!',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
 
             <Form.Item
               label="Short Notes"
@@ -116,6 +167,21 @@ function AddProduct(props) {
             >
               <Input />
             </Form.Item>
+            
+            <Form.Item
+              label="Description"
+              name="description"
+              rules={[
+                {
+                  required: true,
+                  message: 'Enter Description!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            
 
             <Form.Item
               label="Price"
@@ -129,7 +195,7 @@ function AddProduct(props) {
             >
               <Input />
             </Form.Item>
-
+            
             <Form.Item
               label="Image"
               name="image"
@@ -140,7 +206,11 @@ function AddProduct(props) {
                 },
               ]}
             >
-              <Input type='file' />
+
+              <Input type='file' 
+              value={selectedFile}
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+              />
             </Form.Item>
 
             <Form.Item
