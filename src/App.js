@@ -4,7 +4,7 @@ import { Header, Content } from 'antd/lib/layout/layout';
 import { Button, Layout, Space } from 'antd';
 import { Input } from 'antd';
 import './App.css';
-import axios from "axios";
+import { get, post, put } from './axiosConfig';
 import AddProduct from './AddProduct';
 import ListViewProduct from './ListViewProduct';
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,7 +12,6 @@ import { setProductsGlobal, clearProducts } from './redux/productsSlice'
 import {FileAddOutlined} from '@ant-design/icons';
 
 
-const baseURL = "http://127.0.0.1:8000/api";
 
 
 
@@ -54,7 +53,7 @@ function App(props) {
 
     console.log('fetchProducts Called!!')
 
-    axios.get(`${baseURL}/list`).then((response) => {
+   get('/list').then((response) => {
       var res = { data: response.data }
       console.log('res:',res)
       dispatch(setProductsGlobal(res))
@@ -70,7 +69,7 @@ function App(props) {
   const fetchSearchResult=(query)=>{
     console.log('fetchSearchResults Called!!')
    
-    axios.get(`${baseURL}/search/${query}`).then((response) => {
+    get(`/search/${query}`).then((response) => {
       var res = { data: response.data }
       console.log('res:',res)
       dispatch(setProductsGlobal(res))

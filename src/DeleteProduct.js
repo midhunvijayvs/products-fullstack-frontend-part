@@ -4,15 +4,11 @@ import { Header, Content } from 'antd/lib/layout/layout';
 import { Button, Layout } from 'antd';
 import {CloseOutlined } from '@ant-design/icons';
 import {Space, Form } from 'antd';
-import axios from "axios";
-
-
-import { deleteEntry } from './axiosConfig';
-
+import { get,deleteEntry } from './axiosConfig';
 import { useSelector, useDispatch } from 'react-redux'
 import { setProductsGlobal, clearProducts } from './redux/productsSlice'
 
-const baseURL = "http://127.0.0.1:8000/api";
+
 
 
 
@@ -33,7 +29,7 @@ const fetchProducts = () => {
 
     console.log('fetchProducts Called!!')
 
-    axios.get(`${baseURL}/list`).then((response) => {
+    get('/list').then((response) => {
       var res = { data: response.data }
       console.log('res:',res)
       dispatch(setProductsGlobal(res))
