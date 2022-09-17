@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Button, Space, Image  } from 'antd';
+import {Content } from 'antd/lib/layout/layout';
 import {EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import AddProduct from './AddProduct';
 import DeleteProduct from './DeleteProduct';
 
 
 
-function ListViewProduct(props) {
+function ProductCard(props) {
   
 
 
@@ -27,7 +28,8 @@ function ListViewProduct(props) {
 
 
   return (
-    <div className="list-view-product">
+    <Content>
+      <div className="list-view-product">
       <div className='image-wrap'>
         <Image className='product-image' alt='Product'  src={`${props.data.image_public_url}?${props.data.updated_at}`}></Image>
       </div>
@@ -47,7 +49,9 @@ function ListViewProduct(props) {
       </Space>
 
     </div>
+    </Content>
+    
   );
 }
 
-export default ListViewProduct;
+export default ProductCard;

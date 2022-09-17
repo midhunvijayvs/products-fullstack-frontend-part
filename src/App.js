@@ -1,16 +1,17 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
-import { Header, Content } from 'antd/lib/layout/layout';
+import { Header } from 'antd/lib/layout/layout';
 import { Button, Layout, Space } from 'antd';
 import { Input } from 'antd';
 import './App.css';
-import { get, post, put } from './axiosConfig';
+import { get, post} from './axiosConfig';
 import AddProduct from './AddProduct';
-import ListViewProduct from './ListViewProduct';
+import ProductCard from './ProductCard';
 import { useSelector, useDispatch } from 'react-redux'
 import { setProductsGlobal, clearProducts } from './redux/productsSlice'
 import {FileAddOutlined} from '@ant-design/icons';
-
+import MainListView from './MainListView';
+import SearchListView from './SearchListView';
 
 
 
@@ -27,6 +28,8 @@ function App(props) {
   const dispatch = useDispatch()
 
   const [addProduct, setAddProduct] = useState(false);
+  const [contentView, setContentView] =useState('main-list');
+  const[searchQuery, setSearchQuery] =useState('initial');
 
   
   
@@ -59,18 +62,20 @@ function App(props) {
       dispatch(setProductsGlobal(res))
       console.log('productsGlobal',productsGlobal)
 
-      // props.setTheProducts({ products })
-      // console.log('from App', props.mystates.products)
 
     });
   }
 
 
-  const fetchSearchResult=(query)=>{
+  const fetchSearchResult=($query)=>{
     console.log('fetchSearchResults Called!!')
-   
-    get(`/search/${query}`).then((response) => {
-      var res = { data: response.data }
+
+    const form_data = new FormData();
+    
+      form_data.append('term', $query);
+ 
+    post('/search', form_data).then((response) => {
+      var res = { data: response.data.data}
       console.log('res:',res)
       dispatch(setProductsGlobal(res))
       console.log('productsGlobal',productsGlobal)
@@ -84,10 +89,15 @@ function App(props) {
 
 
   const onSearch = (value) => {
-    console.log(value);
-    fetchSearchResult(value)
+    console.log('search term:',value);
+    setSearchQuery(value);
+    fetchSearchResult(value);
+    setContentView('search');
+    console.log('searchQuery in:',searchQuery);
   }
 
+  
+  console.log('searchQuery out:',searchQuery);
 
 const empty={
   'title':'',
@@ -99,7 +109,7 @@ const empty={
 }
 
 
-
+console.log('contentView: ' ,contentView);
 
   return (
     <div className="App">
@@ -119,26 +129,23 @@ const empty={
           
 
         </Header>
-        <Content>
+        
+          <Space className='sub-header'>
+          <Button className='button-primary' onClick={() => showAddProduct(true)} ><FileAddOutlined />Add a New Product</Button>
+
+          </Space>
           
-          <Button className='add-product-button' onClick={() => showAddProduct(true)} ><FileAddOutlined />Add a New Product</Button>
-
           {addProduct ? (<AddProduct function='add' showAddProduct={showAddProduct} data={empty}></AddProduct>) : null}
+          
+          {contentView=='main-list'&& <MainListView></MainListView> }
+          {contentView=='search'&& <SearchListView contentView={contentView} searchQuery={searchQuery}></SearchListView> }
+
+          
+
+          
 
 
-          {/* <Button className='list-button' onClick={() => setShowProducts(true)}>Show Products</Button> */}
-
-          {productsGlobal.products.data &&
-
-productsGlobal.products.data.map((item, key) => {
-              return (
-                <div key={key}>
-                  <ListViewProduct key={key} data={item} ></ListViewProduct>
-                </div>)
-            })}
-
-
-        </Content>
+        
       </Layout>
 
     </div>

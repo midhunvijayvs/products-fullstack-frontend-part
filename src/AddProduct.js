@@ -45,22 +45,13 @@ function AddProduct(props) {
       dispatch(setProductsGlobal(res))
       console.log('productsGlobal',productsGlobal)
 
-      // props.setTheProducts({ products })
-      // console.log('from App', props.mystates.products)
-
     });
   }
 
  
 
   const onFinish = (values) => {
-    console.log(typeof(values));
     
-   
-    
-    
-   
-   
     if (props.function == 'add') {
       
       const form_data1 = new FormData();
