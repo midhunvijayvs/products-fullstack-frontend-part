@@ -6,12 +6,13 @@ import { Input } from 'antd';
 import './App.css';
 import { get, post} from './axiosConfig';
 import AddProduct from './AddProduct';
+import AddProductsPage from './AddProductsPage';
 import ProductCard from './ProductCard';
 import { useSelector, useDispatch } from 'react-redux'
 import { setProductsGlobal, clearProducts } from './redux/productsSlice'
 import {FileAddOutlined} from '@ant-design/icons';
-import MainListView from './MainListView';
-import SearchListView from './SearchListView';
+import MainListPage from './MainListPage';
+import SearchListPage from './SearchListPage';
 
 
 
@@ -27,8 +28,8 @@ function App(props) {
   const productsGlobal = useSelector((state) => state)
   const dispatch = useDispatch()
 
-  const [addProduct, setAddProduct] = useState(false);
-  const [contentView, setContentView] =useState('main-list');
+  const [addProductShown, setAddProductShown] = useState(false);
+  const [pageView, setPageView] =useState('main-list');
   const[searchQuery, setSearchQuery] =useState('initial');
 
   
@@ -36,7 +37,7 @@ function App(props) {
 
 
   const showAddProduct = (value) => {
-    setAddProduct(value)
+    setAddProductShown(value)
 
   }
 
@@ -54,11 +55,10 @@ function App(props) {
 
   const fetchProducts = () => {
 
-    console.log('fetchProducts Called!!')
+   
 
    get('/list').then((response) => {
       var res = { data: response.data }
-      console.log('res:',res)
       dispatch(setProductsGlobal(res))
       console.log('productsGlobal',productsGlobal)
 
@@ -68,8 +68,7 @@ function App(props) {
 
 
   const fetchSearchResult=($query)=>{
-    console.log('fetchSearchResults Called!!')
-
+  
     const form_data = new FormData();
     
       form_data.append('term', $query);
@@ -80,8 +79,7 @@ function App(props) {
       dispatch(setProductsGlobal(res))
       console.log('productsGlobal',productsGlobal)
 
-      // props.setTheProducts({ products })
-      // console.log('from App', props.mystates.products)
+      
 
     });
    
@@ -92,12 +90,12 @@ function App(props) {
     console.log('search term:',value);
     setSearchQuery(value);
     fetchSearchResult(value);
-    setContentView('search');
-    console.log('searchQuery in:',searchQuery);
+    setPageView('search');
+    
   }
 
   
-  console.log('searchQuery out:',searchQuery);
+ 
 
 const empty={
   'title':'',
@@ -109,7 +107,7 @@ const empty={
 }
 
 
-console.log('contentView: ' ,contentView);
+console.log('contentView: ' ,pageView);
 
   return (
     <div className="App">
@@ -131,21 +129,16 @@ console.log('contentView: ' ,contentView);
         </Header>
         
           <Space className='sub-header'>
-          <Button className='button-primary' onClick={() => showAddProduct(true)} ><FileAddOutlined />Add a New Product</Button>
+          
+          <Button className='button-primary' onClick={() => setPageView('add-products')} ><FileAddOutlined />Add Products</Button>
 
           </Space>
           
-          {addProduct ? (<AddProduct function='add' showAddProduct={showAddProduct} data={empty}></AddProduct>) : null}
-          
-          {contentView=='main-list'&& <MainListView></MainListView> }
-          {contentView=='search'&& <SearchListView contentView={contentView} searchQuery={searchQuery}></SearchListView> }
+          {addProductShown ? (<AddProduct function='add' showAddProduct={showAddProduct} data={empty}></AddProduct>) : null}
+          {pageView=='main-list'&& <MainListPage></MainListPage> }
+          {pageView=='search'&& <SearchListPage searchQuery={searchQuery}></SearchListPage> }
+          {pageView=='add-products'&& <AddProductsPage></AddProductsPage> }
 
-          
-
-          
-
-
-        
       </Layout>
 
     </div>

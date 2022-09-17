@@ -51,8 +51,8 @@
   left: calc( 50% - 150px );
   right: auto;
   z-index: 999;
-  border: 1px solid black;
-  border-radius: 10px;
+  box-shadow: 3px 3px 5px rgb(170, 169, 169);
+  border-radius: 5px;
   overflow: hidden;
   
   
@@ -71,14 +71,13 @@
 display: flex;
 }
 
-.list-view-product, .sider{
+.primary-frame{
   background-color: white;
   box-shadow: 3px 3px 5px rgb(170, 169, 169);
   border-radius: 4px;
   margin: 7px 15px 0 4px;
   padding: 15px;
-  display: flex;
-  justify-content: space-between;
+  
 }
 .search-content-wraper{
   display: flex;
@@ -97,12 +96,15 @@ display: flex;
 .sider label{
   align-self: left;
 }
-.list-view-product .image-wrap{
+.product-card-frame .image-wrap{
   width: 20%;
 }
 
-
-.list-view-product .text-wrap{
+.product-card-frame{
+  display: flex;
+  justify-content: space-between;
+}
+.product-card-frame .text-wrap{
   text-align: left;
   width: 800px;
   padding-left: 20px;
@@ -115,21 +117,21 @@ display: flex;
   color: rgb(236, 178, 90);
   font-weight: 600;
 }
-.list-view-product button{
+.product-card-frame button{
   color: white;
   border-radius: 5px;
   width: 95px;
 }
 
-.list-view-product .edit-button{
+.product-card-frame .edit-button{
   background-color: rgb(114, 114, 126);
 }
-.list-view-product .dlt-button{
+.product-card-frame .dlt-button{
   background-color: rgb(247, 57, 57);
 }
 
 
-.list-view-product .cancel-button{
+.product-card-frame .cancel-button{
   color: grey;
 }
 .close-button{
@@ -159,3 +161,9 @@ display: flex;
    height:70vh;
 }
 
+.add-multi-product-form-frame{
+  display: flex;
+}
+.add-multi-product-form-frame .ant-form-item{
+  margin-right: 10px;
+}

@@ -29,7 +29,7 @@ function ProductCard(props) {
 
   return (
     <Content>
-      <div className="list-view-product">
+      <div className="primary-frame product-card-frame">
       <div className='image-wrap'>
         <Image className='product-image' alt='Product'  src={`${props.data.image_public_url}?${props.data.updated_at}`}></Image>
       </div>

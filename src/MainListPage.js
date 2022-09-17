@@ -12,7 +12,7 @@ import { setProductsGlobal, clearProducts } from './redux/productsSlice'
 import {FileAddOutlined} from '@ant-design/icons';
 import {Content } from 'antd/lib/layout/layout';
 
-function MainListView(props) {
+function MainListPage(props) {
     const productsGlobal = useSelector((state) => state)
   const dispatch = useDispatch()
     return(
@@ -30,4 +30,4 @@ function MainListView(props) {
     )    
 }
 
-export default MainListView;
+export default MainListPage;

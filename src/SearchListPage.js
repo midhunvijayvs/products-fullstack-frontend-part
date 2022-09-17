@@ -15,13 +15,13 @@ import {post} from './axiosConfig';
 
 
 
-function SearchListView(props) {
+function SearchListPage(props) {
   
   const productsGlobal = useSelector((state) => state)
   const dispatch = useDispatch()
 
   const fetchPriceSearchResult=(values)=>{
-    console.log('searchQuery in props of SearchListView :', props.searchQuery);
+    console.log('searchQuery in props of SearchListPage :', props.searchQuery);
     console.log('fetchPriceSearchResults Called!!')
 
     const form_data = new FormData();
@@ -97,7 +97,7 @@ function SearchListView(props) {
           </Space>
           
           <Space align='start'>
-            <Sider width={300} className='sider'>
+            <Sider width={300} className='primary-frame sider'>
               <h3 align='start'>Filter Search</h3>
               <Form Layout='vertical' name='PriceFilterForm' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
                 <Space align='start'>
@@ -146,7 +146,7 @@ function SearchListView(props) {
           
           
             <Scroll>
-              <Content className='search-result-list, search-result-list' >
+              <Content className='search-result-list' >
               
             
                 {productsGlobal.products.data &&
@@ -168,4 +168,4 @@ function SearchListView(props) {
     )    
 }
 
-export default SearchListView;
+export default SearchListPage;
