@@ -167,3 +167,8 @@ display: flex;
 .add-multi-product-form-frame .ant-form-item{
   margin-right: 10px;
 }
+
+.add-products-temp-list img{
+  height: 50px;
+  
+}

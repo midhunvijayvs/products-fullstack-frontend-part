@@ -27,11 +27,9 @@ function App(props) {
 
   const productsGlobal = useSelector((state) => state)
   const dispatch = useDispatch()
-
   const [addProductShown, setAddProductShown] = useState(false);
   const [pageView, setPageView] =useState('main-list');
-  const[searchQuery, setSearchQuery] =useState('initial');
-
+  const [searchQuery, setSearchQuery] =useState('initial');
   
   
 

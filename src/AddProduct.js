@@ -26,13 +26,13 @@ function AddProduct(props) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    
+
     console.log("image File", selectedFile);
     console.log(props.data);
-    
-   
 
-  },[selectedFile]);
+
+
+  }, [selectedFile]);
 
 
   const fetchProducts = () => {
@@ -41,21 +41,21 @@ function AddProduct(props) {
 
     get('/list').then((response) => {
       var res = { data: response.data }
-      console.log('res:',res)
+      console.log('res:', res)
       dispatch(setProductsGlobal(res))
-      console.log('productsGlobal',productsGlobal)
+      console.log('productsGlobal', productsGlobal)
 
     });
   }
 
- 
+
 
   const onFinish = (values) => {
-    
+
     if (props.function == 'add') {
-      
+
       const form_data1 = new FormData();
-      for ( var key in values ) {
+      for (var key in values) {
         form_data1.append(key, values[key]);
       }
 
@@ -64,7 +64,7 @@ function AddProduct(props) {
       post('/add', form_data1)
         .then(function (response) {
           console.log('Success!  :', form_data1);
-          console.log('Response for Add',response);
+          console.log('Response for Add', response);
           fetchProducts();
         })
         .catch(function (error) {
@@ -80,11 +80,11 @@ function AddProduct(props) {
 
       var form_data2 = new FormData();
 
-      for ( var key in values ) {
-          form_data2.append(key, values[key]);
+      for (var key in values) {
+        form_data2.append(key, values[key]);
       }
 
-      form_data2.append("_method",'put' )
+      form_data2.append("_method", 'put')
 
       form_data2.set("image", selectedFile);
 
@@ -97,7 +97,7 @@ function AddProduct(props) {
           console.log(error);
         });
 
-        showAddProduct(false)
+      showAddProduct(false)
     }
   }
 
@@ -120,16 +120,16 @@ function AddProduct(props) {
 
 
           <Form name='AddProductForm' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off"
-          initialValues={{
-            ["title"]: props.data.title,
-            ["short_notes"]: props.data.short_notes,
-            ["description"]: props.data.description,
-            ["price"]: props.data.price
-            
-            
-            
-            
-          }}>
+            initialValues={{
+              ["title"]: props.data.title,
+              ["short_notes"]: props.data.short_notes,
+              ["description"]: props.data.description,
+              ["price"]: props.data.price
+
+
+
+
+            }}>
 
             <Form.Item
               label="Title"
@@ -141,7 +141,7 @@ function AddProduct(props) {
                 },
               ]}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
 
@@ -157,7 +157,7 @@ function AddProduct(props) {
             >
               <Input />
             </Form.Item>
-            
+
             <Form.Item
               label="Description"
               name="description"
@@ -171,7 +171,7 @@ function AddProduct(props) {
               <Input />
             </Form.Item>
 
-            
+
 
             <Form.Item
               label="Price"
@@ -185,7 +185,7 @@ function AddProduct(props) {
             >
               <Input />
             </Form.Item>
-            
+
             <Form.Item
               label="Image"
               name="image"
@@ -197,9 +197,9 @@ function AddProduct(props) {
               ]}
             >
 
-              <Input type='file' 
-              value={selectedFile}
-              onChange={(e) => setSelectedFile(e.target.files[0])}
+              <Input type='file'
+                value={selectedFile}
+                onChange={(e) => setSelectedFile(e.target.files[0])}
               />
             </Form.Item>
 
@@ -220,9 +220,6 @@ function AddProduct(props) {
 
           </Form>
         </Content>
-
-
-
 
       </Layout>
 

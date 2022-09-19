@@ -49,7 +49,7 @@ function AddProductRow(props) {
 
  
 
-  console.log('key from child:', props.map_key);
+  
 
 
   return (
@@ -132,10 +132,10 @@ function AddProductRow(props) {
               <Checkbox onChange={()=> {
                   alert("You Checked the box!")
                 }}>VAT&nbsp;Applicable
-        </Checkbox>
+            </Checkbox>
             </Form.Item>
 
-            {props.map_key==props.productsCount-1?(<Button className='button-primary' onClick={() => props.add()}>Add More</Button>):null}
+            
 
     </div>
   );
