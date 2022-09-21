@@ -10,7 +10,7 @@ import AddProductsPage from './AddProductsPage';
 import ProductCard from './ProductCard';
 import { useSelector, useDispatch } from 'react-redux'
 import { setProductsGlobal, clearProducts } from './redux/productsSlice'
-import {FileAddOutlined} from '@ant-design/icons';
+import {FileAddOutlined,HomeOutlined} from '@ant-design/icons';
 import MainListPage from './MainListPage';
 import SearchListPage from './SearchListPage';
 
@@ -105,7 +105,7 @@ const empty={
 }
 
 
-console.log('contentView: ' ,pageView);
+console.log('pageView: ' ,pageView);
 
   return (
     <div className="App">
@@ -128,7 +128,8 @@ console.log('contentView: ' ,pageView);
         
           <Space className='sub-header'>
           
-          <Button className='button-primary' onClick={() => setPageView('add-products')} ><FileAddOutlined />Add Products</Button>
+          {pageView=='main-list'?<Button className='button-primary' onClick={() => setPageView('add-products')} ><FileAddOutlined />Add Products</Button>:<Button className='button-primary' onClick={() => setPageView('main-list')} ><HomeOutlined />Home</Button>}
+          
 
           </Space>
           

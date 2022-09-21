@@ -53,12 +53,12 @@ function AddProduct(props) {
   const onFinish = (values) => {
 
     if (props.function == 'add') {
-
+      console.log('values: ' ,values);
       const form_data1 = new FormData();
       for (var key in values) {
-        form_data1.append(key, values[key]);
+        form_data1.append(key, (values[key]));
       }
-
+      console.log('form_data1: ' ,form_data1);
       form_data1.set("image", selectedFile);
 
       post('/add', form_data1)

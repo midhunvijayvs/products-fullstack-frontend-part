@@ -36,15 +36,15 @@ function ProductCard(props) {
       
       <div className='text-wrap'>
         <h1>{props.data.title}</h1>
-        <h3>{props.data.short_notes}</h3>
-        <h2><span className='price'>Price: &nbsp;  </span>₹ {props.data.price}</h2>
+        <h3>{props.data.short_note}</h3>
+        <h2><span className='price'>Price: &nbsp;</span>₹ {props.data.price} + {props.data.vat_percentage}% <span className='vat'>VAT</span></h2>
         <h4><u>Product Description:</u></h4>
         <p>{props.data.description}</p>
       </div>
       <Space direction='vertical' align='center' size='large'>
         <Button className='edit-button' onClick={() => setEditProduct(true)}><EditOutlined />Edit</Button>
         {editProduct ? (<AddProduct function='edit' id={props.data.id} showAddProduct={showEditProduct} data={props.data}></AddProduct>) : null}
-        <Button className='dlt-button' onClick={() => setDeleteProduct(true)}  ><DeleteOutlined />Delete</Button>
+        <Button className='button-warning' onClick={() => setDeleteProduct(true)}  ><DeleteOutlined />Delete</Button>
         {deleteProduct ? (<DeleteProduct id={props.data.id} showDeleteProduct={showDeleteProduct} />) : ""}
       </Space>
 

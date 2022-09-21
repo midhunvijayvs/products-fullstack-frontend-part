@@ -117,6 +117,11 @@ display: flex;
   color: rgb(236, 178, 90);
   font-weight: 600;
 }
+
+.vat{
+  color: rgb(128, 127, 127);
+  font-weight: 500;
+}
 .product-card-frame button{
   color: white;
   border-radius: 5px;
@@ -126,8 +131,11 @@ display: flex;
 .product-card-frame .edit-button{
   background-color: rgb(114, 114, 126);
 }
-.product-card-frame .dlt-button{
+.button-warning{
   background-color: rgb(247, 57, 57);
+  color: #fff;
+  border-radius: 5px;
+  width: fit-content;
 }
 
 
@@ -163,12 +171,66 @@ display: flex;
 
 .add-multi-product-form-frame{
   display: flex;
+  align-items: center;
+  border: 1px solid #e9e7e6;
+  border-radius: 5px;
+  padding: 12px;
 }
 .add-multi-product-form-frame .ant-form-item{
   margin-right: 10px;
+  margin-bottom: 0;
 }
+.add-products-temp-list{
+  border: 1px solid #6b6d70;
+  border-radius: 5px;
+  height: fit-content;
+  overflow: hidden;
+  margin-bottom: 20px;
 
+}
+.add-products-temp-list .table-header{
+  background-color: #6b6d70;
+  color: #fff;
+  padding: 10px;
+  margin: 0 0 20px 0;
+}
+.add-products-temp-list .table-header p{
+  margin: 0;
+}
 .add-products-temp-list img{
   height: 50px;
   
+}
+
+
+.vat-input-frame{
+  text-align: left;
+  border: 1px solid #e9e7e6;
+  border-radius: 5px;
+  height: fit-content;
+  padding: 12px;
+}
+.vat-percentage{
+  width: 70px;
+}
+
+.vat-input-frame .inner{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: fit-content;
+}
+.vat-input-frame .inner .ant-form-item{margin-bottom: 0;
+}
+
+
+.add-products-display-row{
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid#e9e7e6;
+}
+
+.add-products-display-row .ant-row .ant-col .description{
+  height: 100px;
+  overflow-y: scroll;
 }
