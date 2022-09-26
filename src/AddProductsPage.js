@@ -18,12 +18,17 @@ import { PropertySafetyFilled, MinusCircleOutlined, PlusOutlined } from '@ant-de
 const AddProductsPage = () => {
   const [form] = Form.useForm();
   const [fileListlocal, setFileListlocal] = useState([]);
+  const[base64ImageArray, setBase64ImageArray] = useState([]);  // for converting images to base64
   const [vatCheckedArray, setVatCheckedArray] = useState([]);
 
   useEffect(() => {
-    console.log('vatCheckedArray:', vatCheckedArray);
-  }, [vatCheckedArray])
+    console.log('fileListlocal:', fileListlocal);
+  }, [fileListlocal])
 
+
+  useEffect(() => {
+    console.log('base64ImageArray:', base64ImageArray);
+  }, [base64ImageArray])
 
   // const fetchProducts = () => {
   //   get('/list').then((response) => {
@@ -33,23 +38,45 @@ const AddProductsPage = () => {
   //   });
   // }
 
+
+  const convertAndPushBase64 = (file) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+
+      setBase64ImageArray([...base64ImageArray,reader.result]);
+     
+      
+      
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  
+  }
+
+
   const submitBatch = (values) => {
-    var images=[];
+    var images = [];
 
     console.log('Received values of form:', values)
 
     for (let i = 0; i < values.products.length; i++) {
-      
+
       values.products[i].vat_applicable = vatCheckedArray[i];
-      if (values.products[i].vat_applicable == false){
+
+      if (values.products[i].vat_applicable == false) {
         values.products[i].vat_percentage = 0
       }
+
+      values.products[i].image = base64ImageArray[i];
+
     }
 
-   
+    console.log('values of form after conversions:', values)
 
-  
-    
+
+
 
 
 
@@ -83,6 +110,7 @@ const AddProductsPage = () => {
   const addItemsToStateLists = (form) => {
     setFileListlocal([...fileListlocal, []]);
     setVatCheckedArray([...vatCheckedArray, false]);
+    
     // form.setFieldValue(`[0, "vat_applicable"]`,true)
     console.log('Received values of form:', form.getFieldsValue(true));
 
@@ -101,6 +129,8 @@ const AddProductsPage = () => {
     let temp = [...fileListlocal];
     temp[key] = fileList;
     setFileListlocal(temp);
+
+    convertAndPushBase64(fileList[0].originFileObj)         // take the first(only one image in each row as of now) image, convert to base64 and push to base64ImageArray
     //convertTo64AndSetImage(newFileList[0].originFileObj, key)
     //getBase64(newFileList[0].originFileObj)
 
@@ -127,10 +157,10 @@ const AddProductsPage = () => {
     </div>
   );
 
-const doNothing=async options => {
+  const doNothing = async options => {
     const { onSuccess, onError, file, onProgress } = options;
     onSuccess("Ok");
-}
+  }
 
   return (
     <Content>
@@ -265,7 +295,7 @@ const doNothing=async options => {
                         >
                           <Upload
                             customRequest={doNothing}
-                            
+
                             listType="picture-card"
                             fileList={fileListlocal[{ key }]}
 
@@ -277,7 +307,7 @@ const doNothing=async options => {
                       </Col>
 
 
-                      
+
 
 
                       <Col className="gutter-row" span={3}>
