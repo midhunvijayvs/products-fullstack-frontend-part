@@ -168,13 +168,14 @@ display: flex;
   overflow-y: 'scroll';
    height:70vh;
 }
-
+.add-product-form{
+padding-left: 20px;
+}
 .add-multi-product-form-frame{
-  display: flex;
   align-items: start;
-  border: 1px solid #e9e7e6;
-  border-radius: 5px;
-  padding: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid#e9e7e6;
 }
 .add-multi-product-form-frame .ant-form-item{
   margin-right: 10px;
@@ -203,32 +204,23 @@ display: flex;
 }
 
 
-.vat-input-frame{
-  text-align: left;
-  border: 1px solid #e9e7e6;
-  border-radius: 5px;
-  height: fit-content;
-  padding: 12px;
-}
 .vat-percentage{
   width: 70px;
 }
 
-.vat-input-frame .inner{
+.vat-input-frame{
   display: flex;
   align-items: center;
   justify-content: left;
   height: fit-content;
+  padding: 12px;
+
 }
-.vat-input-frame .inner .ant-form-item{margin-bottom: 0;
+.vat-input-frame .ant-form-item{margin-bottom: 0;
 }
 
 
-.add-products-display-row{
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid#e9e7e6;
-}
+
 
 .add-products-display-row .ant-row .ant-col .description{
   height: 100px;
