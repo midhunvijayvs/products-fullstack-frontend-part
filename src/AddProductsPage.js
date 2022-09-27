@@ -39,15 +39,15 @@ const AddProductsPage = () => {
   // }
 
 
-  const convertAndPushBase64 = (file) => {
+  const convertToBase64AndPush = (file) => {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
 
+
       setBase64ImageArray([...base64ImageArray,reader.result]);
      
-      
-      
+       
     };
     reader.onerror = function (error) {
       console.log('Error: ', error);
@@ -76,18 +76,6 @@ const AddProductsPage = () => {
     console.log('values of form after conversions:', values)
 
 
-
-
-
-
-    // popTail();
-
-    // const form_data = new FormData();
-    // form_data.append('data', values);
-    // //form_data.append('images', JSON.stringify(imageArray));
-    // console.log('formData:', ...form_data);
-
-
     post('/add-batch', values)
       .then(function (response) {
         console.log('Response for Add', response);
@@ -97,13 +85,6 @@ const AddProductsPage = () => {
         console.log(error);
       });
   }
-
-
-
-
-
-
-
 
 
 
@@ -130,9 +111,8 @@ const AddProductsPage = () => {
     temp[key] = fileList;
     setFileListlocal(temp);
 
-    convertAndPushBase64(fileList[0].originFileObj)         // take the first(only one image in each row as of now) image, convert to base64 and push to base64ImageArray
-    //convertTo64AndSetImage(newFileList[0].originFileObj, key)
-    //getBase64(newFileList[0].originFileObj)
+    convertToBase64AndPush(fileList[0].originFileObj);         // take the first(only one image in each row as of now) image, convert to base64 and push to base64ImageArray
+    
 
 
   };
@@ -278,7 +258,7 @@ const AddProductsPage = () => {
                             },
                           ]}
                         >
-                          <Input placeholder="Price" />
+                          <Input type='number' placeholder="Price" />
                         </Form.Item>
                       </Col>
 
@@ -362,7 +342,7 @@ const AddProductsPage = () => {
 
 
 
-                    <Button type="dashed" onClick={() => {
+                    <Button type="dashed" className='button-primary button-add' onClick={() => {
                       add()
                       addItemsToStateLists(form);
                     }} block icon={<PlusOutlined />}>
@@ -374,7 +354,7 @@ const AddProductsPage = () => {
             </Form.List>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" className='button-submit' htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
