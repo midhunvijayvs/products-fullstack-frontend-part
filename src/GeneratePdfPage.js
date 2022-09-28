@@ -20,10 +20,16 @@ const styles = StyleSheet.create({
         fontSize: '40px',
     },
     shortNote: {
+        marginBottom: '20px'
+
+    },
+    priceWrap: {
+        display: 'flex',
 
     },
     price: {
-
+        color: 'rgb(236, 178, 90)',
+        fontWeight: '600',
     },
     descriptionHead: {
 
@@ -70,26 +76,20 @@ const GeneratePdfPage = (props) => {
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
 
-                    <div className="primary-frame product-card-frame">
-                        <Image src={props.data.image_public_url} />
-                        <div className='image-wrap'>
-                            <Image alt='Product' src={`${props.data.image_public_url}?${props.data.updated_at}`}></Image>
-                        </div>
 
-                        <div className='text-wrap'>
-                            <Text style={styles.title}>{props.data.title}</Text>
-                            <Text style={styles.shortNote}>{props.data.short_note}</Text>
-                            <div>
-                                <Text style={styles.price}>Price</Text>
-                                <Text>Rs: {props.data.price} + {props.data.vat_percentage}% </Text>
-                                <Text style={styles.vat}>VAT</Text>
-                            </div>
-                            <Text style={styles.descriptionHead}>Product Description:</Text>
-                            <Text style={styles.description}>{props.data.description}</Text>
-                        </div>
+                    <Image src={props.data.image_public_url}></Image>
 
+                    <View>
+                        <Text style={styles.title}>{props.data.title}</Text>
+                        <Text style={styles.shortNote}>{props.data.short_note}</Text>
+                        <View style={styles.priceWrap}>
+                            <Text style={styles.price}>Price</Text>
+                            <Text>Rs: {props.data.price} + {props.data.vat_percentage}% VAT</Text>
+                        </View>
+                        <Text style={styles.descriptionHead}>Product Description:</Text>
+                        <Text style={styles.description}>{props.data.description}</Text>
 
-                    </div>
+                    </View>
 
                 </View>
             </Page>
