@@ -92,7 +92,7 @@ const AddProductsPage = () => {
     setFileListlocal([...fileListlocal, []]);
     setVatCheckedArray([...vatCheckedArray, false]);
     
-    // form.setFieldValue(`[0, "vat_applicable"]`,true)
+   
     console.log('Received values of form:', form.getFieldsValue(true));
 
   }

@@ -1,28 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { Document, Page, Text, View, StyleSheet, pdf, BlobProvider, PDFDownloadLink } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image, pdf, BlobProvider, Font, PDFDownloadLink } from '@react-pdf/renderer';
 import ReactPDF from '@react-pdf/renderer';
+import { Button } from 'antd';
 
-import { Button, Image } from 'antd';
+import { get, post, put } from './axiosConfig';
+
+
+
+
+
+
+
+Font.register({
+    family: 'Oswald',
+    src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
+});
 
 // Create styles for PDF Document
 const styles = StyleSheet.create({
     page: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         backgroundColor: '#fff',
         marginRight: '50pt'
     },
     header: {
+        flexDirection: 'row',
         backgroundColor: '#6b6d70',
-        
+        marginTop: '5pt',
         alignItems: 'center',
         justifyContent: 'space-between',
-        fonSize: '10pt',
+        fontSize: '12pt',
         color: 'white',
         padding: '10pt',
-        paddingTop: '30pt'
+
     },
     headerTitle: {
-        color:'#fff',
+        color: '#fff',
+    },
+    compName: {
+        color: 'rgb(236, 178, 90)',
     },
 
     section: {
@@ -30,13 +46,23 @@ const styles = StyleSheet.create({
         padding: 10,
         flexGrow: 1
     },
+
+    imageWrap:{
+        borderRadius:'5pt',
+        border:'1px solid grey'
+      },
+    image:{
+        height:'150pt',
+    },
+
     title: {
         fontSize: '40pt',
-        marginBottom: '10pt'
+        marginBottom: '10pt',
+        fontFamily: 'Oswald'
     },
     shortNote: {
         marginBottom: '20pt',
-        fontStyle:'italic',
+        fontStyle: 'italic',
         color: '#707070',
 
     },
@@ -49,18 +75,45 @@ const styles = StyleSheet.create({
         color: 'rgb(236, 178, 90)',
         fontWeight: '600',
     },
+    priceDecimal: {
+
+    },
     descriptionHead: {
         marginBottom: '10pt'
     },
     description: {
-        fontSize: '12px',
+        fontSize: '12pt',
         fontWeight: 'Normal',
         width: '360pt',
         color: '#707070',
+        fontFamily: 'Times-Roman'
     },
     vat: {
+        fontSize: '12pt',
+
+        color: '#707070',
+    },
+    footer: {
+        flexDirection: 'row',
+        backgroundColor: '#6b6d70',
+        marginBottom: '5pt',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        fontSize: '7pt',
+        color: 'white',
+        padding: '5pt',
 
     },
+    footerText1: {
+        fontSize: '10pt',
+        fontFamily: 'Oswald',
+        color: '#fff',
+    },
+    footerText2: {
+        fontSize: '7pt',
+        color: '#fff',
+    },
+
 
 });
 
@@ -85,8 +138,22 @@ const styles = StyleSheet.create({
 
 const GeneratePdfPage = (props) => {
 
+
+
     useEffect(
-        () => { console.log('props:', props); }
+        () => {
+            console.log('props:', props);
+
+            get(`/getFile/${props.data.id}`, null)
+                .then(function (response) {
+                    console.log('file response:', response);
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }
         , [])
 
 
@@ -95,24 +162,36 @@ const GeneratePdfPage = (props) => {
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.header}>
-                <Text style={styles.headerTitle}>Product Catelogue</Text>
+                    <Text style={styles.headerTitle}>Product Catelogue</Text>
+                    <Text style={styles.compName}>Tranetech</Text>
+
                 </View>
                 <View style={styles.section}>
 
+                    <View>
 
-                    <Image src={props.data.image_public_url}></Image>
+
+                        <Image style={styles.image} src={props.data.image_public_url} />
+                    </View>
 
                     <View>
                         <Text style={styles.title}>{props.data.title}</Text>
                         <Text style={styles.shortNote}>{props.data.short_note}</Text>
                         <View style={styles.priceWrap}>
-                            <Text style={styles.price}>Price  </Text>
-                            <Text>Rs: {props.data.price} + {props.data.vat_percentage}% VAT</Text>
+                            <Text style={styles.price}>Price</Text>
+                            <Text style={styles.priceDecimal}>Rs: {props.data.price}</Text>
+                            <Text style={styles.vat}> + {props.data.vat_percentage}% VAT</Text>
                         </View>
                         <Text style={styles.descriptionHead}>Product Description:</Text>
                         <Text style={styles.description}>{props.data.description}</Text>
 
                     </View>
+
+                </View>
+                <View style={styles.footer}>
+                    <Text style={styles.footerText1}>someone@tranetech.com</Text>
+                    <Text style={styles.footerText2}>Copyright c Tranetech</Text>
+                    <Text style={styles.footerText1}>Page 1</Text>
 
                 </View>
             </Page>
@@ -139,7 +218,7 @@ const GeneratePdfPage = (props) => {
                         // Do whatever you need with blob here
                         return <Button className='button-yellow' onClick={function () {
                             window.open(`${url}`);
-                        }} href={url} target="_blank">Print PDF</Button>
+                        }}>Print PDF</Button>
                     }}
                 </BlobProvider>
             </div>
