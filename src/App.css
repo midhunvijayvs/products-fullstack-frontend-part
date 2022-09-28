@@ -52,7 +52,7 @@ input[type=number] {
   font-weight: 400;
 }
 
-.button-primary{
+.button-grey{
   color: white;
   background-color: rgb(114, 114, 126);
   border-radius: 5px;
@@ -66,11 +66,13 @@ input[type=number] {
   margin-bottom: 20px;
 }
 
-.button-submit{
+.button-yellow{
   background-color:rgb(236, 178, 90) ;
   border: 1px solid rgb(197, 136, 45);
   color: #000000;
   margin-bottom: 20px;
+  border-radius: 5px;
+  
 }
 
 .add-product-frame{
@@ -154,7 +156,8 @@ display: flex;
 .product-card-frame button{
   color: white;
   border-radius: 5px;
-  width: 95px;
+  width: fit-content;
+  min-width: 95px;
 }
 
 .product-card-frame .edit-button{

@@ -224,7 +224,7 @@ function AddProductRow(props) {
 
 
         <div style={{ display: 'flex' }}>
-          {props.productsCount == props.rowKey ? < Button className='button-primary' type="primary" htmlType="submit" >Add</Button> : null}
+          {props.productsCount == props.rowKey ? < Button className='button-grey' type="primary" htmlType="submit" >Add</Button> : null}
         </div>
 
       </div>

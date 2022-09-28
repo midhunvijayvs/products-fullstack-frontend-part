@@ -161,7 +161,7 @@ function AddProductsPage(props) {
 
 
 
-          {productsCount > 0 ? <Button className='button-primary' onClick={submitBatch} >submit</Button> : null}
+          {productsCount > 0 ? <Button className='button-grey' onClick={submitBatch} >submit</Button> : null}
 
 
 

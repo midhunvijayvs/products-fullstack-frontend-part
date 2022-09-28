@@ -133,7 +133,7 @@ function SearchListPage(props) {
 
                   <Form.Item
                   >
-                    <Button className='button-primary' type="primary" htmlType="submit">
+                    <Button className='button-grey' type="primary" htmlType="submit">
                       Go
                     </Button>
                   </Form.Item>

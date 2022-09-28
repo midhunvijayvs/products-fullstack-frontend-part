@@ -342,7 +342,7 @@ const AddProductsPage = () => {
 
 
 
-                    <Button type="dashed" className='button-primary button-add' onClick={() => {
+                    <Button type="dashed" className='button-grey button-add' onClick={() => {
                       add()
                       addItemsToStateLists(form);
                     }} block icon={<PlusOutlined />}>
@@ -354,7 +354,7 @@ const AddProductsPage = () => {
             </Form.List>
 
             <Form.Item>
-              <Button type="primary" className='button-submit' htmlType="submit">
+              <Button type="primary" className='button-yellow' htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
