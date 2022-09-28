@@ -9,22 +9,40 @@ const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
         backgroundColor: '#fff',
-        margin: '50px'
+        marginRight: '50pt'
     },
+    header: {
+        backgroundColor: '#6b6d70',
+        
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        fonSize: '10pt',
+        color: 'white',
+        padding: '10pt',
+        paddingTop: '30pt'
+    },
+    headerTitle: {
+        color:'#fff',
+    },
+
     section: {
         margin: 10,
         padding: 10,
         flexGrow: 1
     },
     title: {
-        fontSize: '40px',
+        fontSize: '40pt',
+        marginBottom: '10pt'
     },
     shortNote: {
-        marginBottom: '20px'
+        marginBottom: '20pt',
+        fontStyle:'italic',
+        color: '#707070',
 
     },
     priceWrap: {
-        display: 'flex',
+        flexDirection: 'row',
+        marginBottom: '20pt'
 
     },
     price: {
@@ -32,11 +50,13 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     descriptionHead: {
-
+        marginBottom: '10pt'
     },
     description: {
         fontSize: '12px',
-        width: '500px'
+        fontWeight: 'Normal',
+        width: '360pt',
+        color: '#707070',
     },
     vat: {
 
@@ -74,6 +94,9 @@ const GeneratePdfPage = (props) => {
     const MyPDFDocument = (
         <Document>
             <Page size="A4" style={styles.page}>
+                <View style={styles.header}>
+                <Text style={styles.headerTitle}>Product Catelogue</Text>
+                </View>
                 <View style={styles.section}>
 
 
@@ -83,7 +106,7 @@ const GeneratePdfPage = (props) => {
                         <Text style={styles.title}>{props.data.title}</Text>
                         <Text style={styles.shortNote}>{props.data.short_note}</Text>
                         <View style={styles.priceWrap}>
-                            <Text style={styles.price}>Price</Text>
+                            <Text style={styles.price}>Price  </Text>
                             <Text>Rs: {props.data.price} + {props.data.vat_percentage}% VAT</Text>
                         </View>
                         <Text style={styles.descriptionHead}>Product Description:</Text>
