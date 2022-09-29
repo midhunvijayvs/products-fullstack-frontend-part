@@ -203,11 +203,6 @@ const GeneratePdfPage = (props) => {
         </Document>
     );
 
-
-   
-
-
-
     return (
         <>
 
