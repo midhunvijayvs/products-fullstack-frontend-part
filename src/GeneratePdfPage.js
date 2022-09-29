@@ -4,7 +4,7 @@ import ReactPDF from '@react-pdf/renderer';
 import { Button } from 'antd';
 
 import { get, post, put } from './axiosConfig';
-
+import axios from "axios";
 
 
 
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 
     imageWrap:{
         borderRadius:'5pt',
-        border:'1px solid grey'
+        border:'1pt'
       },
     image:{
         height:'150pt',
@@ -117,45 +117,52 @@ const styles = StyleSheet.create({
 
 });
 
-// Create Document Component for PDF file
 
 
 
-
-// const GeneratePdfPage = () => {
-//     const blob = pdf(MyPDFDocument).toBlob();
-//     return (
-//         <div>
-//             <PDFDownloadLink document={<MyPDFDocument />} fileName="somename.pdf">
-//                 {({ blob, url, loading, error }) =>
-//                     loading ? 'Loading document...' : 'Download now!'
-//                 }
-//             </PDFDownloadLink>
-//         </div>
-//     )
-
-// }
 
 const GeneratePdfPage = (props) => {
 
-
+   
 
     useEffect(
         () => {
             console.log('props:', props);
 
-            get(`/getFile/${props.data.id}`, null)
-                .then(function (response) {
-                    console.log('file response:', response);
 
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            
 
+
+
+           
         }
         , [])
 
+
+        var href='';
+
+
+        const buttonClicked=()=>{
+//             axios({
+//                 url: `${BASE_URL}/getFile/${props.data.id}`, //your url
+//                 method: 'GET',
+//                 responseType: 'blob', // important
+//             }).then((response) => {
+//                 // create file link in browser's memory
+//                 href = URL.createObjectURL(response.data);
+                
+//                 console.log('href:',href);
+//                console.log('response:',response);
+
+//                var urlCreator = window.URL || window.webkitURL;
+//    var imageUrl = urlCreator.createObjectURL(response.data);
+//    console.log('imageURL:',imageUrl);
+
+            
+               
+            // });
+        
+        };
 
 
     const MyPDFDocument = (
@@ -168,10 +175,8 @@ const GeneratePdfPage = (props) => {
                 </View>
                 <View style={styles.section}>
 
-                    <View>
-
-
-                        <Image style={styles.image} src={props.data.image_public_url} />
+                    <View style={styles.imageWrap}>
+                        <Image style={styles.image} src={props.data.image_public_url} alt='Product Image'/>
                     </View>
 
                     <View>
@@ -199,6 +204,7 @@ const GeneratePdfPage = (props) => {
     );
 
 
+   
 
 
 
@@ -217,7 +223,8 @@ const GeneratePdfPage = (props) => {
 
                         // Do whatever you need with blob here
                         return <Button className='button-yellow' onClick={function () {
-                            window.open(`${url}`);
+                            // buttonClicked();
+                             window.open(`${url}`);
                         }}>Print PDF</Button>
                     }}
                 </BlobProvider>

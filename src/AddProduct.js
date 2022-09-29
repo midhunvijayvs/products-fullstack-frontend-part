@@ -122,7 +122,7 @@ function AddProduct(props) {
           <Form name='AddProductForm' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off"
             initialValues={{
               ["title"]: props.data.title,
-              ["short_notes"]: props.data.short_notes,
+              ["short_note"]: props.data.short_note,
               ["description"]: props.data.description,
               ["price"]: props.data.price
 
@@ -147,7 +147,7 @@ function AddProduct(props) {
 
             <Form.Item
               label="Short Notes"
-              name="short_notes"
+              name="short_note"
               rules={[
                 {
                   required: true,
