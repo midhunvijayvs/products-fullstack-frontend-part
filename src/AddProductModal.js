@@ -1,4 +1,5 @@
 import React, { Component, useEffect } from 'react';
+
 import './App.css';
 import { Header, Content } from 'antd/lib/layout/layout';
 import { Button, Layout } from 'antd';
@@ -12,7 +13,7 @@ import { useState } from 'react';
 
 
 
-function AddProduct(props) {
+function AddProductModal(props) {
 
 
   const productsGlobal = useSelector((state) => state)
@@ -110,7 +111,7 @@ function AddProduct(props) {
   return (
 
 
-    <div className='add-product-frame'>
+    <div className='modal-frame'>
       <Layout>
         <Header>
           <h5>{props.function} Product</h5>
@@ -227,4 +228,4 @@ function AddProduct(props) {
   );
 }
 
-export default AddProduct;
+export default AddProductModal;

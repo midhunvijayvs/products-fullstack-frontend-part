@@ -6,6 +6,7 @@ const BASE_URL = "http://127.0.0.1:8000/api"
 
 axios.interceptors.request.use(
   (config) => {
+    config.headers["Access-Control-Allow-Origin"] = "http://localhost:3000";
     config.headers["Accept"] = "application/json";
     return config;
   },

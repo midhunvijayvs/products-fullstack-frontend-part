@@ -70,13 +70,13 @@ const fetchProducts = () => {
   return (
 
 
-    <div className='add-product-frame'>
+    <div className='modal-frame'>
       <Layout>
         <Header>
           <h5>Delete Product</h5>
           <Button onClick={() => showDeleteProduct(false)} className="close-button"><CloseOutlined /></Button>
         </Header>
-        <Content className='delete-wrapper'>
+        <Content className='modal-content'>
           <Form name='DeleteProductForm' onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
             <p>Are you sure to delete this Product?</p>
             <Space>

@@ -70,15 +70,15 @@ input[type=number] {
   background-color:rgb(236, 178, 90) ;
   border: 1px solid rgb(197, 136, 45);
   color: #000000;
-  margin-bottom: 20px;
   border-radius: 5px;
+  min-width: 95px;
   
 }
 
-.add-product-frame{
-  width: 300px;
+.modal-frame{
+  width: 400px;
   position:fixed;
-  top: 50px;
+  top: 200px;
   left: calc( 50% - 150px );
   right: auto;
   z-index: 999;
@@ -88,14 +88,17 @@ input[type=number] {
   
   
 }
-.add-product-frame h5{
+.modal-frame h5{
   color: white;
+  font-size: 17px;
 }
-.add-product-frame form{
-  padding: 10px;
-  
+
+.modal-frame header{
+padding: 0 20px;
+height: 40px;
 }
-.add-product-frame iframe{
+
+.modal-frame iframe{
   display: none;
 }
 .search-layout{
@@ -171,24 +174,26 @@ display: flex;
 }
 
 
-.product-card-frame .cancel-button{
+.cancel-button{
   color: grey;
+  border-radius: 5px;
+  min-width: 95px;
 }
 .close-button{
   border: none;
   background-color: unset;
-  width: 100%;
+  min-width: unset !important;
   border-radius: 5px;
   
 }
-.delete-wrapper{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
-  color: red;
-  font-size: 30px;
+.modal-content{
+  padding: 20px;
+  font-size: 10px;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center ;
+
 }
 
 .product-image{
@@ -259,3 +264,6 @@ padding-left: 20px;
   overflow-y: scroll;
 }
 
+.letter-head-checkbox{
+  margin-bottom: 15px;
+}

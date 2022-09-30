@@ -5,7 +5,7 @@ import { Button, Layout, Space } from 'antd';
 import { Input } from 'antd';
 import './App.css';
 import { get, post} from './axiosConfig';
-import AddProduct from './AddProduct';
+import AddProductModal from './AddProductModal';
 import ProductCard from './ProductCard';
 import { useSelector, useDispatch } from 'react-redux'
 import { setProductsGlobal, clearProducts } from './redux/productsSlice'

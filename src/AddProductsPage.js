@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setProductsGlobal, clearProducts } from './redux/productsSlice'
 
 import { Content } from 'antd/lib/layout/layout';
-import AddProductRow from './AddProductRow';
+
 import { PropertySafetyFilled, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 

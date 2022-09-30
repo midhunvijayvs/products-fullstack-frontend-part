@@ -3,10 +3,9 @@ import './App.css';
 import { Button, Space, Image } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import AddProduct from './AddProduct';
+import AddProductModal from './AddProductModal';
 import DeleteProduct from './DeleteProduct';
-import GeneratePdfPage from './GeneratePdfPage';
-
+import PrintPDFModal from './PrintPDFModal';
 
 function ProductCard(props) {
 
@@ -14,7 +13,7 @@ function ProductCard(props) {
 
   const [deleteProduct, setDeleteProduct] = useState(false);
   const [editProduct, setEditProduct] = useState(false);
-
+  const [printPDFmodalShown, setPrintPDFmodalShown] = useState(false);
 
   const showEditProduct = (value) => {
     setEditProduct(value)
@@ -26,9 +25,16 @@ function ProductCard(props) {
   }
 
 
-
+  const showPDF = (value) => {    
+    setPrintPDFmodalShown(false);
+}
   return (
+
+    
     <Content>
+      {printPDFmodalShown ? (<PrintPDFModal id={props.data.id} setPrintPDFmodalShown={setPrintPDFmodalShown}  showPDF={showPDF} data={props.data}></PrintPDFModal>) : null}
+           
+
       <div className="primary-frame product-card-frame">
         <div className='image-wrap'>
           <Image className='product-image' alt='Product' src={`${props.data.image_public_url}?${props.data.updated_at}`}></Image>
@@ -42,10 +48,12 @@ function ProductCard(props) {
           <p>{props.data.description}</p>
         </div>
         <Space direction='vertical' align='center' size='large'>
-          <GeneratePdfPage data={props.data}></GeneratePdfPage>
-
+          
+          <Button className='button-yellow' onClick={function () {
+                    setPrintPDFmodalShown(true);
+                }}>Print PDF</Button>
           <Button className='edit-button' onClick={() => setEditProduct(true)}><EditOutlined />Edit</Button>
-          {editProduct ? (<AddProduct function='edit' id={props.data.id} showAddProduct={showEditProduct} data={props.data}></AddProduct>) : null}
+          {editProduct ? (<AddProductModal function='edit' id={props.data.id} showAddProduct={showEditProduct} data={props.data}></AddProductModal>) : null}
           <Button className='button-warning' onClick={() => setDeleteProduct(true)}  ><DeleteOutlined />Delete</Button>
           {deleteProduct ? (<DeleteProduct id={props.data.id} showDeleteProduct={showDeleteProduct} />) : ""}
         </Space>

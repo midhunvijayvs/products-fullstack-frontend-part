@@ -5,7 +5,7 @@ import { Button, Layout, Space } from 'antd';
 import { Input } from 'antd';
 import './App.css';
 import { get, post } from './axiosConfig';
-import AddProduct from './AddProduct';
+import AddProductModal from './AddProductModal';
 import AddProductsPage from './AddProductsPage';
 import ProductCard from './ProductCard';
 import { useSelector, useDispatch } from 'react-redux'
@@ -146,7 +146,7 @@ function App(props) {
 
         </Space>
 
-        {addProductShown ? (<AddProduct function='add' showAddProduct={showAddProduct} data={empty}></AddProduct>) : null}
+        {addProductShown ? (<AddProductModal function='add' showAddProduct={showAddProduct} data={empty}></AddProductModal>) : null}
         {pageView == 'main-list' && <MainListPage></MainListPage>}
         {pageView == 'search' && <SearchListPage searchQuery={searchQuery}></SearchListPage>}
         {pageView == 'add-products' && <AddProductsPage></AddProductsPage>}
