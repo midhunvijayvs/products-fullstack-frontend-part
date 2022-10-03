@@ -6,15 +6,15 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import AddProductModal from './AddProductModal';
 import DeleteProduct from './DeleteProduct';
 import PrintPDFModal from './PrintPDFModal';
-
+import SendMailModal from './SendMailModal'
 function ProductCard(props) {
 
 
 
   const [deleteProduct, setDeleteProduct] = useState(false);
   const [editProduct, setEditProduct] = useState(false);
-  const [printPDFmodalShown, setPrintPDFmodalShown] = useState(false);
-
+  const [printPDFModalShown, setPrintPDFModalShown] = useState(false);
+  const [sendMailModalShown, setSendMailModalShown] = useState(false);
   const showEditProduct = (value) => {
     setEditProduct(value)
 
@@ -25,15 +25,16 @@ function ProductCard(props) {
   }
 
 
-  const showPDF = (value) => {    
-    setPrintPDFmodalShown(false);
-}
+  const showPDF = (value) => {
+    setPrintPDFModalShown(false);
+  }
   return (
 
-    
+
     <Content>
-      {printPDFmodalShown ? (<PrintPDFModal id={props.data.id} setPrintPDFmodalShown={setPrintPDFmodalShown}  showPDF={showPDF} data={props.data}></PrintPDFModal>) : null}
-           
+      {printPDFModalShown ? (<PrintPDFModal id={props.data.id} setPrintPDFModalShown={setPrintPDFModalShown}  data={props.data}></PrintPDFModal>) : null}
+      {sendMailModalShown ? (<SendMailModal id={props.data.id} setSendMailModalShown={setSendMailModalShown}  data={props.data}></SendMailModal>) : null}
+
 
       <div className="primary-frame product-card-frame">
         <div className='image-wrap'>
@@ -48,10 +49,18 @@ function ProductCard(props) {
           <p>{props.data.description}</p>
         </div>
         <Space direction='vertical' align='center' size='large'>
-          
+
+
+
           <Button className='button-yellow' onClick={function () {
-                    setPrintPDFmodalShown(true);
-                }}>Print PDF</Button>
+            setPrintPDFModalShown(true);
+          }}>Print PDF</Button>
+
+          <Button className='button-yellow' onClick={function () {
+            setSendMailModalShown(true);
+          }}>Send Mail</Button>
+
+
           <Button className='edit-button' onClick={() => setEditProduct(true)}><EditOutlined />Edit</Button>
           {editProduct ? (<AddProductModal function='edit' id={props.data.id} showAddProduct={showEditProduct} data={props.data}></AddProductModal>) : null}
           <Button className='button-warning' onClick={() => setDeleteProduct(true)}  ><DeleteOutlined />Delete</Button>

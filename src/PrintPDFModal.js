@@ -26,17 +26,10 @@ function PrintPDFModal(props) {
     , [letterHeadShown]);
 
 
-  const posClicked = (values) => {
-
-    props.showPDF(true);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+ 
 
   const cancelClicked = () => {
-    props.setPrintPDFmodalShown(false)
+    props.setPrintPDFModalShown(false)
 
   }
 
@@ -228,7 +221,7 @@ function PrintPDFModal(props) {
 
         <Header>
           <h5>Print PDF</h5>
-          <Button onClick={() => props.setPrintPDFmodalShown(false)} className="close-button"><CloseOutlined /></Button>
+          <Button onClick={() => props.setPrintPDFModalShown(false)} className="close-button"><CloseOutlined /></Button>
         </Header>
 
         <Content className='modal-content'>
@@ -241,7 +234,7 @@ function PrintPDFModal(props) {
               {({ blob, url, loading, error }) => {
                 return (<Button className='button-yellow' onClick={function () {
                   window.open(`${url}`);
-                  props.setPrintPDFmodalShown(false)
+                  props.setPrintPDFModalShown(false)
                 }}>Print</Button>)
 
 

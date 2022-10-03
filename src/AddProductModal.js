@@ -54,12 +54,12 @@ function AddProductModal(props) {
   const onFinish = (values) => {
 
     if (props.function == 'add') {
-      console.log('values: ' ,values);
+      console.log('values: ', values);
       const form_data1 = new FormData();
       for (var key in values) {
         form_data1.append(key, (values[key]));
       }
-      console.log('form_data1: ' ,form_data1);
+      console.log('form_data1: ', form_data1);
       form_data1.set("image", selectedFile);
 
       post('/add', form_data1)
@@ -126,10 +126,6 @@ function AddProductModal(props) {
               ["short_note"]: props.data.short_note,
               ["description"]: props.data.description,
               ["price"]: props.data.price
-
-
-
-
             }}>
 
             <Form.Item

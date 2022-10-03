@@ -274,7 +274,7 @@ const AddProductsPage = () => {
                           ]}
                         >
                           <Upload
-                            customRequest={doNothing}
+                            customRequest={doNothing}  // to stop the antd Upload's default uploading api call when selecting image
 
                             listType="picture-card"
                             fileList={fileListlocal[{ key }]}
