@@ -4,7 +4,7 @@ import { Header, Content } from 'antd/lib/layout/layout';
 import { Button, Layout } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { Space, Form, Checkbox } from 'antd';
-import { Document, Page, Text, View, StyleSheet, Image, pdf, BlobProvider, Font, PDFDownloadLink } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image, BlobProvider, Font } from '@react-pdf/renderer';
 
 
 
@@ -235,6 +235,7 @@ function PrintPDFModal(props) {
                 return (<Button className='button-yellow' onClick={function () {
                   window.open(`${url}`);
                   props.setPrintPDFModalShown(false)
+                  props.setPDFBlob(blob)
                 }}>Print</Button>)
 
 
